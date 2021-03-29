@@ -2,6 +2,8 @@ client/RequestEntity.java
  client.RequestEntity
 server/RequestEntity.java
  server.RequestEntity
+server/JSONEntity.java
+ server.JSONEntity
 server/ResponseEntity.java
  server.ResponseEntity
 client/Main.java
@@ -12,3 +14,5 @@ server/DbEntity.java
  server.DbEntity
 server/Main.java
  server.Main
+server/ClientHandler.java
+ server.ClientHandler

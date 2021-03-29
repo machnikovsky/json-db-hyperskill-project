@@ -1,5 +1,9 @@
 package client;
 
+import server.JSONEntity;
+
+import java.util.List;
+
 public class RequestEntity {
 
         public String type;

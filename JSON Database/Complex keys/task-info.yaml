@@ -268,9 +268,10 @@ files:
     \  )\n                        .anyOtherValues()\n                    )\n     \
     \       );\n        checkIfThreadWasCreated();\n\n\n        client = getClient();\n\
     \        client.start(\"-t\", \"exit\");\n\n        return CheckResult.correct();\n\
-    \    }\n\n    private static TestedProgram getClient() {\n        return new TestedProgram(client.Main.class);\n\
-    \    }\n\n    private static TestedProgram getServer() {\n        return new TestedProgram(server.Main.class);\n\
-    \    }\n\n    private static int getThreadCount() {\n        return (int) ManagementFactory.getThreadMXBean().getTotalStartedThreadCount();\n\
+    \    }\n\n    private static TestedProgram getClient() {\n        return new TestedProgram(\"\
+    client\");\n    }\n\n    private static TestedProgram getServer() {\n        return\
+    \ new TestedProgram(\"server\");\n    }\n\n    private static int getThreadCount()\
+    \ {\n        return (int) ManagementFactory.getThreadMXBean().getTotalStartedThreadCount();\n\
     \    }\n\n    private static void checkIfThreadWasCreated() {\n\n        int total\
     \ = getThreadCount();\n\n        /*8 threads: 1 server thread and 7 client threads\
     \ created during the test.\n         If the server doesn't handle clients in a\
@@ -387,6 +388,313 @@ files:
         }
     }
   learner_created: false
+- name: src/server/ResponseEntity.java
+  visible: true
+  text: |
+    package server;
+
+    public class ResponseEntity {
+        public String response;
+        public String value;
+        public String reason;
+        public String file;
+
+        public ResponseEntity() {
+        }
+    }
+  learner_created: true
+- name: src/client/data/testGet.json
+  visible: true
+  text: '{"type":"get","key":"name"}'
+  learner_created: true
+- name: myTempFile.txt
+  visible: true
+  text: |
+    {"name":"Kate","text":"Some text here"}
+  learner_created: true
+- name: src/client/Args.java
+  visible: true
+  text: |
+    package client;
+
+    import com.beust.jcommander.Parameter;
+
+    public class Args {
+
+
+        @Parameter(names = {"-t"})
+        String type;
+
+        @Parameter(names = {"-k"})
+        String key;
+
+        @Parameter(names = {"-v"})
+        String value;
+
+        @Parameter(names = {"-in"})
+        String file;
+
+    }
+  learner_created: true
+- name: src/client/RequestEntity.java
+  visible: true
+  text: |
+    package client;
+
+    public class RequestEntity {
+
+            public String type;
+            public String key;
+            public String value;
+            public String file;
+
+            public RequestEntity() {
+            }
+
+            public void makeRequestFromArgs(Args args) {
+                    this.type = args.type;
+                    this.key = args.key;
+                    this.value = args.value;
+                    this.file = args.value;
+            }
+
+    }
+  learner_created: true
+- name: src/server/DbEntity.java
+  visible: true
+  text: |
+    package server;
+
+    public class DbEntity {
+        String key;
+        String value;
+
+        public DbEntity() {
+        }
+
+        public DbEntity(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+  learner_created: true
+- name: src/client/data/testSet.json
+  visible: true
+  text: '{"type":"set","key":"name","value":"Kate"}'
+  learner_created: true
+- name: src/client/data/testDelete.json
+  visible: true
+  text: '{"type":"delete","key":"name"}'
+  learner_created: true
+- name: src/server/ClientHandler.java
+  visible: true
+  text: |
+    package server;
+
+    import com.google.gson.Gson;
+
+    import java.io.*;
+    import java.net.ServerSocket;
+    import java.net.Socket;
+    import java.nio.charset.StandardCharsets;
+    import java.nio.file.Files;
+    import java.nio.file.Path;
+    import java.util.List;
+    import java.util.Map;
+    import java.util.concurrent.locks.Lock;
+    import java.util.concurrent.locks.ReadWriteLock;
+    import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+    // this class handles each client connection
+    class ClientHandler extends Thread {// Runnable {
+
+        private final Socket socket;
+        private final ServerSocket serverSocket;
+        volatile Map<String, String> JSONdb;
+        volatile boolean exit;
+
+        public ClientHandler(Socket clientSocket, Map<String, String> JSONdb, ServerSocket serverSocket) {
+            this.socket = clientSocket;
+            this.JSONdb = JSONdb;
+            this.exit = true;
+            this.serverSocket = serverSocket;
+        }
+
+
+        public void run() {
+
+            Gson gson = new Gson();
+
+
+
+            ReadWriteLock lock = new ReentrantReadWriteLock();
+            Lock readLock = lock.readLock();
+            Lock writeLock = lock.writeLock();
+
+            String recievedJSON = null;
+
+            String pathToDb = "C:\\Users\\klien\\IdeaProjects\\JSON Database\\JSON Database\\task\\src\\server\\data\\db.json";
+            File file = new File(pathToDb);
+            FileWriter fw = null;
+            try {
+                fw = new FileWriter(file, true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            PrintWriter pw = new PrintWriter(fw, true);
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(file));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+
+            try(
+                    DataInputStream input = new DataInputStream(socket.getInputStream());
+                    DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+
+                    )
+            {
+             //here
+
+                    recievedJSON = input.readUTF();
+
+
+                RequestEntity requestEntity = gson.fromJson(recievedJSON, RequestEntity.class);
+                ResponseEntity responseEntity = new ResponseEntity();
+
+                String type = requestEntity.type;
+                String key = requestEntity.key;
+                String value = requestEntity.value;
+
+
+                switch (type) {
+                    case "get":
+                        readLock.lock();
+                        if (!JSONdb.containsKey(key)) {
+                            responseEntity.response = "ERROR";
+                            responseEntity.reason = "No such key";
+                        } else {
+                            responseEntity.response = "OK";
+                            responseEntity.value = JSONdb.get(key);
+                        }
+                        readLock.unlock();
+                        break;
+                    case "set":
+                        writeLock.lock();
+                        JSONdb.put(key, value);
+                        try (FileWriter writerTemp = new FileWriter(file)) {
+                                writerTemp.write(new Gson().toJson(JSONdb, Map.class));
+
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        responseEntity.response = "OK";
+                        writeLock.unlock();
+                        break;
+                    case "delete":
+                        writeLock.lock();
+                        if (!JSONdb.containsKey(key)) {
+                            responseEntity.response = "ERROR";
+                            responseEntity.reason = "No such key";
+                        } else {
+                            JSONdb.remove(key);
+
+                            File tempFile = new File("myTempFile.txt");
+
+                            BufferedWriter tempWriter = null;
+                            try {
+                                tempWriter = new BufferedWriter(new FileWriter(tempFile));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            String lineToRemove = gson.toJson(new DbEntity(key, value));
+                            String currentLine = null;
+
+                            while (true) {
+                                try {
+                                    if ((currentLine = br.readLine()) == null) break;
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                String trimmedLine = currentLine.trim();
+                                if (trimmedLine.equals(lineToRemove)) continue;
+                                try {
+                                    tempWriter.write(currentLine + System.getProperty("line.separator"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            try {
+                                tempWriter.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                                br.close();
+                            boolean successful = tempFile.renameTo(file);
+
+                            responseEntity.response = "OK";
+                        }
+                        writeLock.unlock();
+                        break;
+                    case "exit":
+                        responseEntity.response = "OK";
+                        exit = true;
+                        serverSocket.close();
+                        break;
+                    default:
+                        responseEntity.response = "";
+                        break;
+                }
+
+                    output.writeUTF(gson.toJson(responseEntity));
+                    socket.close();
+                    fw.close();
+                    pw.close();
+                    br.close();
+
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+
+        }
+    }
+  learner_created: true
+- name: src/server/data/db.json
+  visible: true
+  text: '{"name":"Kate","text":"Some text here"}'
+  learner_created: true
+- name: src/server/JSONEntity.java
+  visible: true
+  learner_created: true
+- name: src/server/data/data.json
+  visible: true
+  learner_created: true
+- name: src/client/data/setFile.json
+  visible: true
+  learner_created: true
+- name: src/client/data/getFile.json
+  visible: true
+  learner_created: true
+- name: src/client/data/secondGetFile.json
+  visible: true
+  learner_created: true
+- name: src/client/data/updateFile.json
+  visible: true
+  learner_created: true
+- name: src/client/data/deleteFile.json
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/65/stages/353/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Mon, 29 Mar 2021 14:28:00 UTC
 record: -1

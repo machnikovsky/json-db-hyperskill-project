@@ -1,0 +1,15 @@
+
+S	java:S106#"9Replace this use of System.out or System.err by a logger.(†…³òÿÿÿÿÿ
+S	java:S106D"9Replace this use of System.out or System.err by a logger.(ÖÿÛĞıÿÿÿÿ
+g
+java:S20952"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(Òü‡ûÿÿÿÿ
+?
+java:S1481")Remove this unused "scan" local variable.(ÅÒ²º
+]
+java:S22598"GA "NullPointerException" could be thrown; "brFileArg" is nullable here.(—Ìï 
+P
+java:S11417"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+P	java:S125&"<This block of commented-out lines of code should be removed.(¦äÂ>
+S	java:S106B"9Replace this use of System.out or System.err by a logger.(“›§ùÿÿÿÿ
+P
+java:S11411"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ

@@ -756,41 +756,12 @@ files:
 - name: myTempFile.txt
   visible: true
   learner_created: true
+- name: src/server/ClientHandler.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/65/stages/352/implement#comment
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Wrong answer in test #3
-
-    The JSON object at key value should equal to &quot;HelloWorld!&quot;, found &quot;Hello world!&quot;
-
-    Full JSON:
-    {
-      &quot;response&quot;: &quot;OK&quot;,
-      &quot;value&quot;: &quot;Hello world!&quot;
-    }
-
-    Please find below the output of your program during this failed test.
-
-    ---
-
-    Arguments for Main: -t get -k 1
-    Arguments for Main: -t set -k 1 -v &quot;Hello world!&quot;
-    Arguments for Main: -t set -k 1 -v HelloWorld!
-    Arguments for Main: -t get -k 1
-
-    Server started!
-    Client started!
-    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;1&quot;}
-    Received: {&quot;response&quot;:&quot;ERROR&quot;,&quot;reason&quot;:&quot;No such key&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;1&quot;,&quot;value&quot;:&quot;Hello world!&quot;}
-    Received: {&quot;response&quot;:&quot;OK&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;1&quot;,&quot;value&quot;:&quot;HelloWorld!&quot;}
-    Received: {&quot;response&quot;:&quot;OK&quot;}
-    Client started!
-    Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;1&quot;}
-    Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;Hello world!&quot;}
-  time: Tue, 15 Dec 2020 17:25:32 UTC
-record: -1
+  message: Congratulations!
+  time: Tue, 15 Dec 2020 21:01:29 UTC
+record: 5

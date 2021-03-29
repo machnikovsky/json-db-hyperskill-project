@@ -1,6 +1,9 @@
 package client;
 
 import com.beust.jcommander.Parameter;
+import server.JSONEntity;
+
+import java.util.List;
 
 public class Args {
 

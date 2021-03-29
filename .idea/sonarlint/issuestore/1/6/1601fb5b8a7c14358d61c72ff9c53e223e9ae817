@@ -1,0 +1,29 @@
+
+?
+java:S1481")Remove this unused "scan" local variable.(ÅÒ²º
+d
+java:S2095#"IUse try-with-resources or close this "PrintWriter" in a "finally" clause.(‹ò˜—ÿÿÿÿÿ
+[
+java:S1128"ERemove this unused import 'java.util.concurrent.locks.ReadWriteLock'.(Í¿×ä
+\
+java:S1075 "ARefactor your code to get this URI from a customizable parameter.(òÇõ¢ùÿÿÿÿ
+k	java:S117("QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®Ü­Øùÿÿÿÿ
+B
+java:S1481#"'Remove this unused "pw" local variable.(‹ò˜—ÿÿÿÿÿ
+g
+java:S2095$"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(¹®Ùœÿÿÿÿÿ
+c
+java:S1128"NRemove this unused import 'java.util.concurrent.locks.ReentrantReadWriteLock'.(¢×¿
+R
+java:S1128"<Remove this unused import 'java.util.concurrent.locks.Lock'.(µÒÌÿ
+a
+java:S1128"FRemove this unused import 'java.util.concurrent.atomic.AtomicBoolean'.(§­‹¼üÿÿÿÿ
+E
+java:S1128"/Remove this unused import 'java.nio.file.Path'.(×²êÂ
+S	java:S1063"9Replace this use of System.out or System.err by a logger.(ïëèÖýÿÿÿÿ
+V	java:S125>"<This block of commented-out lines of code should be removed.(‘š¸øÿÿÿÿ
+F
+java:S1128"0Remove this unused import 'java.nio.file.Files'.(‚ƒü
+T
+java:S1128
+">Remove this unused import 'java.nio.charset.StandardCharsets'.(ï˜ÞÛ

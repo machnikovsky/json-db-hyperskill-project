@@ -1,2 +1,1 @@
-{"key":"1","value":"HelloWorld!"}
-{"key":"text","value":"Some text here"}
+{"1":"Hello world!","person":{"name":"Elon Musk","car":{"model":"Tesla Roadster","year":"2018"},"rocket":{"name":"Falcon 9","launches":"88"}}}

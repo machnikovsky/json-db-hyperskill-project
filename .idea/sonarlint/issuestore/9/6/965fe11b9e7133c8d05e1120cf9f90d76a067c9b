@@ -1,0 +1,57 @@
+
+\
+java:S2259€"@A "NullPointerException" could be thrown; "br" is nullable here.(»ôµçÿÿÿÿÿ
+e
+java:S2259„"IA "NullPointerException" could be thrown; "currentLine" is nullable here.( Í©Şıÿÿÿÿ
+K
+java:S1481’"/Remove this unused "successful" local variable.(Áƒ®óûÿÿÿÿ
+V
+java:S2222^";Unlock this lock along all executions paths of this method.(†Å·úÿÿÿÿ
+P
+java:S1161!":Add the "@Override" annotation above this method signature(“–ış
+\
+java:S1075-"ARefactor your code to get this URI from a customizable parameter.(òÇõ¢ùÿÿÿÿ
+P
+java:S1141u"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+g
+java:S2095v"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(Ášé‰ıÿÿÿÿ
+f	java:S116"QRename this field "JSONdb" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õÇÔ
+Q
+java:S1141†"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+F
+java:S1128	"0Remove this unused import 'java.nio.file.Files'.(‚ƒü
+b
+java:S20958"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(ãÈˆ¦
+T
+java:S1128">Remove this unused import 'java.nio.charset.StandardCharsets'.(ï˜ŞÛ
+_
+java:S2259‡"HA "NullPointerException" could be thrown; "tempWriter" is nullable here.(û¡¡±
+Q
+java:S1141Œ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+_
+java:S2259"HA "NullPointerException" could be thrown; "tempWriter" is nullable here.(»ìø“
+h
+java:S3776!"RRefactor this method to reduce its Cognitive Complexity from 37 to the 15 allowed.(“–ış
+Q	java:S125"<This block of commented-out lines of code should be removed.(”ˆİÍ
+\
+java:S2259¤"@A "NullPointerException" could be thrown; "fw" is nullable here.(’™à€üÿÿÿÿ
+P
+java:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+d
+java:S20955"IUse try-with-resources or close this "PrintWriter" in a "finally" clause.(‹ò˜—ÿÿÿÿÿ
+s	java:S135~"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ
+W
+java:S2259¦"@A "NullPointerException" could be thrown; "br" is nullable here.(µÖ€’
+E
+java:S1128
+"/Remove this unused import 'java.nio.file.Path'.(×²êÂ
+m
+java:S3077"WUse a thread-safe type; adding "volatile" is not enough to make this field thread-safe.(õÇÔ
+X	java:S899’"=Do something with the "boolean" value returned by "renameTo".(Áƒ®óûÿÿÿÿ
+V
+java:S2222S";Unlock this lock along all executions paths of this method.(şİŠŒøÿÿÿÿ
+V
+java:S2222k";Unlock this lock along all executions paths of this method.(†Å·úÿÿÿÿ
+K
+java:S1141`"5Extract this nested try block into a separate method.(„‰Í
+f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ¬Ğ
